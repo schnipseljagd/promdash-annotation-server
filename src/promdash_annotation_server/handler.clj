@@ -54,9 +54,11 @@
                       until (read-string (get-in request [:params :until] (str (current-timestamp))))]
                      (generate-string (annotation-list-response tags mrange until))))
            (POST "/annotations/tags/:tag" request
-                (let [tag (get-in request [:params :tag])
-                      body (parse-string (slurp (get request :body)) true)]
-                  (put-annotation tag (:created_at body) (:message body)))
+                 (let [tag (get-in request [:params :tag])
+                       body (parse-string (slurp (get request :body)) true)
+                       timestamp (:created_at body)
+                       message (:message body)]
+                   (put-annotation tag timestamp message))
                  "ok")
            (route/not-found "Not Found"))
 
