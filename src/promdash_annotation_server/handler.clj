@@ -5,7 +5,8 @@
             [taoensso.faraday :as far]))
 
 (def client-opts
-  {:access-key (System/getenv "AWS_ACCESS_KEY") :secret-key (System/getenv "AWS_SECRET_KEY")
+  {:access-key (System/getenv "AWS_ACCESS_KEY")
+   :secret-key (System/getenv "AWS_SECRET_KEY")
    :endpoint (get (System/getenv) "AWS_DYNAMODB_ENDPOINT" "http://localhost:8000")
    :table-name "promdash-annotations"})
 
