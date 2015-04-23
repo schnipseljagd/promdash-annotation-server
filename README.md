@@ -1,4 +1,5 @@
 # promdash-annotation-server
+[![Build Status](https://travis-ci.org/schnipseljagd/promdash-annotation-server.svg)](https://travis-ci.org/schnipseljagd/promdash-annotation-server)
 
 An annotation backend for [promdash](http://prometheus.io/docs/visualization/promdash/).
 Uses [DynamoDB](https://aws.amazon.com/dynamodb/) as datastore.
