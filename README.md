@@ -28,9 +28,10 @@ To start a web server for the application, run:
 
 Set the following environment variables:
 
-| Key                             | Purpose               |
-| ------------------------------- | --------------------- |
-| AWS_ACCESS_KEY                  | An AWS access key     |
-| AWS_SECRET_KEY                  | An AWS secret key     |
-| DYNAMODB_READ_CAPACITY_UNITS    | Default 1             |
-| DYNAMODB_WRITE_CAPACITY_UNITS   | Default 1             |
+| Key                             | Purpose                |
+| ------------------------------- | ---------------------  |
+| AWS_ACCESS_KEY                  | An AWS access key      |
+| AWS_SECRET_KEY                  | An AWS secret key      |
+| DYNAMODB_READ_CAPACITY_UNITS    | Default 1              |
+| DYNAMODB_WRITE_CAPACITY_UNITS   | Default 1              |
+| AWS_DYNAMODB_ENDPOINT           | Default local dynamodb |
