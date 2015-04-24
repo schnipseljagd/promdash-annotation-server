@@ -35,3 +35,7 @@ Set the following environment variables:
 | DYNAMODB_READ_CAPACITY_UNITS    | Default 1              |
 | DYNAMODB_WRITE_CAPACITY_UNITS   | Default 1              |
 | AWS_DYNAMODB_ENDPOINT           | Default local dynamodb |
+
+## Run it in docker
+
+    docker run -d -p 8080:8080 -e AWS_ACCESS_KEY="XXX" -e AWS_SECRET_KEY="YYY" -e AWS_DYNAMODB_ENDPOINT="http://dynamodb.eu-west-1.amazonaws.com/" -e DYNAMODB_READ_CAPACITY_UNITS=10 -e DYNAMODB_WRITE_CAPACITY_UNITS=1 <some-id>
