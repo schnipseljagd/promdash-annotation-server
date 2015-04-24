@@ -54,9 +54,15 @@
 (defn current-timestamp []
   (int (/ (System/currentTimeMillis) 1000)))
 
+(defn get-tags-from-request [request]
+  (let [tags (get-in request [:params "tags[]"] [])]
+    (if-not (vector? tags)
+      [tags]
+      tags)))
+
 (defroutes app-routes
            (GET "/annotations" request
-                (let [tags (get-in request [:params "tags[]"] [])
+                (let [tags (get-tags-from-request request)
                       mrange (read-string (get-in request [:params :range] "60"))
                       until (read-string (get-in request [:params :until] (str (current-timestamp))))]
                      (generate-string (annotation-list-response tags mrange until))))

@@ -20,10 +20,20 @@
     (let [response (app (mock/body (mock/request :post "/annotations/tags/deployment") (generate-string some-deployment-annotation-post)))]
       (is (= (:status response) 200))
       (is (= (:body response) "ok")))
-    (let [response (app (mock/request :get "/annotations?range=3600&tags[]=deployment&tags[]=prometheus&until=1423491311.424"))]
+    (let [response (app (mock/body (mock/request :post "/annotations/tags/foo") (generate-string some-deployment-annotation-post)))]
+      (is (= (:status response) 200))
+      (is (= (:body response) "ok")))
+    (let [response (app (mock/request :get "/annotations?range=3600&tags[]=deployment&until=1423491311.424"))]
       (is (= (:status response) 200))
       (is (= (:body response) (generate-string {:posts [some-deployment-annotation-post]})))))
 
+  (testing "returns a list of annotation posts"
+    (let [response (app (mock/body (mock/request :post "/annotations/tags/deployment") (generate-string some-deployment-annotation-post)))]
+      (is (= (:status response) 200))
+      (is (= (:body response) "ok")))
+    (let [response (app (mock/request :get "/annotations?range=3600&tags%5B%5D=deployment&tags%5B%5D=prometheus&until=1423491311.424"))]
+      (is (= (:status response) 200))
+      (is (= (:body response) (generate-string {:posts [some-deployment-annotation-post]})))))
 
   (testing "not-found route"
     (let [response (app (mock/request :get "/invalid"))]
