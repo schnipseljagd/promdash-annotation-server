@@ -10,13 +10,19 @@
    :endpoint (get (System/getenv) "AWS_DYNAMODB_ENDPOINT" "http://localhost:8000")
    :table-name "promdash-annotations"})
 
+(defn assert-valid-number [val]
+  (if-not (number? val) (throw (Exception. (str "This is not a valid number: " val))) val))
+
+(defn get-number-from-env-var [name default]
+  (assert-valid-number (read-string (get (System/getenv) name default))))
+
 (defn ensure-annotations-table-exists []
   (far/ensure-table client-opts
                     (:table-name client-opts)
                     [:tag :s]
                     {:range-keydef [:timestamp :n]
-                     :throughput {:read (get (System/getenv) "DYNAMODB_READ_CAPACITY_UNITS" 1)
-                                  :write (get (System/getenv) "DYNAMODB_WRITE_CAPACITY_UNITS" 1)}
+                     :throughput {:read (get-number-from-env-var "DYNAMODB_READ_CAPACITY_UNITS" "1")
+                                  :write (get-number-from-env-var "DYNAMODB_WRITE_CAPACITY_UNITS" "1")}
                      :block? true}))
 
 (defn delete-annotation [tag timestamp]
