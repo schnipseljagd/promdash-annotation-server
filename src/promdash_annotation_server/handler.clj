@@ -37,7 +37,7 @@
   (let [annotations (far/query client-opts
                                (keyword (:table-name client-opts))
                                {:tag [:eq tag]
-                                :timestamp [:between [(- until mrange) until]]})]
+                                :timestamp [:between [(- (* 1000 until) (* 1000 mrange)) (* 1000 until)]]})]
     (map (fn [annotation] {:created_at (:timestamp annotation) :message (:message annotation)}) annotations)))
 
 (comment
@@ -65,8 +65,8 @@
 (defroutes app-routes
            (GET "/annotations" request
                 (let [tags (get-tags-from-request request)
-                      mrange (read-string (get-in request [:params :range] "60"))
-                      until (read-string (get-in request [:params :until] (str (current-timestamp))))]
+                      mrange (read-string (get-in request [:params :range]))
+                      until (read-string (get-in request [:params :until]))]
                      (generate-string (annotation-list-response tags mrange until))))
            (POST "/annotations/tags/:tag" request
                  (let [tag (get-in request [:params :tag])

@@ -5,7 +5,7 @@
             [cheshire.core :refer :all]))
 
 (def some-deployment-annotation-post
-  {:created_at 1423487712 :message "some deployment"})
+  {:created_at 1423487712000 :message "some deployment"})
 
 (use-fixtures :once (fn [f] (ensure-annotations-table-exists) (f)))
 (use-fixtures :each (fn [f] (delete-annotation "deployment" 1423487712) (f)))
