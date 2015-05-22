@@ -2,6 +2,8 @@
   (:require [compojure.core :refer :all] [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [cheshire.core :refer :all]
+            [clj-time.core :as t]
+            [clj-time.coerce :as tc]
             [taoensso.faraday :as far]))
 
 (def client-opts
@@ -52,7 +54,7 @@
   {:posts (into [] (flatten (map #(list-annotations :tag % :mrange mrange :until until) tags)))})
 
 (defn current-timestamp []
-  (int (/ (System/currentTimeMillis) 1000)))
+  (tc/to-long (t/now)))
 
 (defn get-tags-from-request [request]
   (let [tags (get-in request [:params "tags[]"] [])]
@@ -69,7 +71,7 @@
            (POST "/annotations/tags/:tag" request
                  (let [tag (get-in request [:params :tag])
                        body (parse-string (slurp (get request :body)) true)
-                       timestamp (:created_at body)
+                       timestamp (get body :created_at (current-timestamp))
                        message (:message body)]
                    (put-annotation tag timestamp message))
                  "ok")
