@@ -4,6 +4,8 @@
 An annotation backend for [promdash](http://prometheus.io/docs/visualization/promdash/).
 Uses [DynamoDB](https://aws.amazon.com/dynamodb/) as datastore.
 
+Get the latest [docker build](https://registry.hub.docker.com/u/schnipseljagd/promdash-annotation-server/).
+
 ## Prerequisites
 
 You will need [Leiningen][] 2.0.0 or above installed.
