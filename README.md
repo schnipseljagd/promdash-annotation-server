@@ -17,6 +17,7 @@ You will need [Leiningen][] 2.0.0 or above installed.
 Setup environment:
 
     cp profiles.clj.example profiles.clj
+    ./run_dynamodb_local.sh ; have dynamodb local running
 
 Run the tests:
 
