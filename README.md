@@ -12,11 +12,15 @@ You will need [Leiningen][] 2.0.0 or above installed.
 
 [leiningen]: https://github.com/technomancy/leiningen
 
-## Tests
+## Run it locally
+
+Setup environment:
+
+    cp profiles.clj.example profiles.clj
+
+Run the tests:
 
     lein test
-
-## Run it locally
 
 To start a web server for the application, run:
 

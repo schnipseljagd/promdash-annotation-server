@@ -1,0 +1,5 @@
+{:provided {:env {:aws-access-key "xxx"
+                  :aws-secret-key "xxx"
+                  :dynamodb-endpoint "http://localhost:8000"
+                  :dynamodb-read-capacity-units "1"
+                  :dynamodb-write-capacity-units "1"}}}
