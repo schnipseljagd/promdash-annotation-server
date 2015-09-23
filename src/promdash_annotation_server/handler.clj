@@ -4,27 +4,28 @@
             [cheshire.core :refer :all]
             [clj-time.core :as t]
             [clj-time.coerce :as tc]
+            [environ.core :refer [env]]
             [taoensso.faraday :as far]))
 
 (def client-opts
-  {:access-key (System/getenv "AWS_ACCESS_KEY")
-   :secret-key (System/getenv "AWS_SECRET_KEY")
-   :endpoint (get (System/getenv) "AWS_DYNAMODB_ENDPOINT" "http://localhost:8000")
+  {:access-key (env :aws-access-key)
+   :secret-key (env :aws-secret-key)
+   :endpoint (env :dynamodb-endpoint)
    :table-name "promdash-annotations"})
 
 (defn assert-valid-number [val]
   (if-not (number? val) (throw (Exception. (str "This is not a valid number: " val))) val))
 
-(defn get-number-from-env-var [name default]
-  (assert-valid-number (read-string (get (System/getenv) name default))))
+(defn get-number-from-env-var [name]
+  (assert-valid-number (read-string (env name))))
 
 (defn ensure-annotations-table-exists []
   (far/ensure-table client-opts
                     (:table-name client-opts)
                     [:tag :s]
                     {:range-keydef [:timestamp :n]
-                     :throughput {:read (get-number-from-env-var "DYNAMODB_READ_CAPACITY_UNITS" "1")
-                                  :write (get-number-from-env-var "DYNAMODB_WRITE_CAPACITY_UNITS" "1")}
+                     :throughput {:read (get-number-from-env-var :dynamodb-read-capacity-units)
+                                  :write (get-number-from-env-var :dynamodb-write-capacity-units)}
                      :block? true}))
 
 (defn delete-annotation [tag timestamp]
@@ -48,7 +49,9 @@
   (put-annotation "foo" 1 "hello!")
   (put-annotation "foo" 23 "hello!")
   (put-annotation "foo" 2345 "huhu")
-  (list-annotations :tag "foo" :mrange 100 :until 123))
+  (list-annotations :tag "foo" :mrange 100 :until 123)
+
+  )
 
 (defn annotation-list-response [tags mrange until]
   {:posts (into [] (flatten (map #(list-annotations :tag % :mrange mrange :until until) tags)))})

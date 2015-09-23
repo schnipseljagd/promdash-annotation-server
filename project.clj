@@ -9,8 +9,10 @@
                  [cheshire "5.5.0"]
                  [com.taoensso/faraday "1.7.1"]
                  [clj-time "0.11.0"]
+                 [environ "1.0.1"]
                  [ring-server "0.4.0"]]
-  :plugins [[lein-ring "0.8.13"]]
+  :plugins [[lein-ring "0.8.13"]
+            [lein-environ "1.0.0"]]
   :ring {:handler promdash-annotation-server.handler/app}
   :main promdash-annotation-server.launcher
   :profiles
