@@ -3,12 +3,12 @@
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [compojure "1.3.1"]
-                 [ring/ring-defaults "0.1.2"]
-                 [ring/ring-json "0.3.1"]
-                 [cheshire "5.4.0"]
-                 [com.taoensso/faraday "1.7.0-RC1"]
-                 [clj-time "0.9.0"]
+                 [compojure "1.4.0"]
+                 [ring/ring-defaults "0.1.5"]
+                 [ring/ring-json "0.4.0"]
+                 [cheshire "5.5.0"]
+                 [com.taoensso/faraday "1.7.1"]
+                 [clj-time "0.11.0"]
                  [ring-server "0.4.0"]]
   :plugins [[lein-ring "0.8.13"]]
   :ring {:handler promdash-annotation-server.handler/app}
