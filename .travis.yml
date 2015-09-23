@@ -4,6 +4,7 @@ env:
   global:
     - AWS_ACCESS_KEY=XXXXXXXXXXXXXXX
     - AWS_SECRET_KEY=YYYYYYYYYYYYYYYYYYYYYY
+    - DYNAMODB_ENDPOINT="http://localhost:8000"
 before_script:
   - ./run_dynamodb_local.sh > /dev/null 2>&1 &
 script: lein2 test
