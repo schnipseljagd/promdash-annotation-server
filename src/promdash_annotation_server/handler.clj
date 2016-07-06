@@ -78,6 +78,7 @@
                        message (:message body)]
                    (put-annotation tag timestamp message))
                  "ok")
+           (GET "/health" request "ok")
            (route/not-found "Not Found"))
 
 (def app
